@@ -15,11 +15,15 @@ function Grid({height = 8, width = 10, numBombs = 10}) {
         display: 'grid',
         gridTemplateColumns: `repeat(${width}, ${'20px'})`
     }
-    function bombClick() {
+    function endGame(result) {
         //!make this reveal all bombs and end game
         setFinalState(game)
         setGame([])
         setGameOver(true);
+        giveResult(result);
+    }
+    function giveResult(result) {
+        console.log(result)
     }
     function wasClicked(x, y) {
         for (let i = 0; i < clickedArr.length; i++) {
@@ -28,11 +32,16 @@ function Grid({height = 8, width = 10, numBombs = 10}) {
             }
         }
         clickedArr.push([x,y]);
+        if((height * width - numBombs) == clickedArr.length){
+            endGame('winner');
+            return;
+        }
+        
     }
     function decideBomb(numOfBombs, i, j, clicked=false) {
         if (map[i][j] == true) {
             currentNumBombs=0;
-            return <Bomb clickedArr={clickedArr} wasClicked={wasClicked} bombClick={bombClick} gameOver={gameOver}/>;
+            return <Bomb x={j} y={i} clickedArr={clickedArr} wasClicked={wasClicked} endGame={endGame} gameOver={gameOver}/>;
         }
         return <Box x={j} y={i} mapP={map} clickedArr={clickedArr} wasClicked={wasClicked} gameOver={gameOver} clicked={clicked}/>;
     }
@@ -71,18 +80,8 @@ function Grid({height = 8, width = 10, numBombs = 10}) {
         }
 
     }
-    function giveResult(didLose) {
-        if (didLose) {
-            console.log('loser')
-        }
-    }
-    // console.log(game)
     React.useEffect(() =>{
         if(gameOver){
-            if (game.length - clickedArr.length) {
-                giveResult(false)
-            }
-            giveResult(true)
             for (let i = 0; i < height; i++) {
                 let arr = []
                 for (let j = 0; j < width; j++) {
@@ -120,16 +119,17 @@ function Grid({height = 8, width = 10, numBombs = 10}) {
         }
         setCounter(counter + 1)
     }, [gameOver]);
-    React.useEffect(() =>{
-        //run everytime click happens
-        console.log(`Game: ${game.length}`);
-        console.log(`Clicked: ${clickedArr.length}`);
-        console.log(`Bombs: ${bombMap.length}`);
-        if(game.length - clickedArr.length == bombMap.length){
-            console.log('winner');
-            setGameOver(true);
-        }
-    }, [clickedArr]);
+
+    // React.useEffect(() =>{
+    //     //run everytime click happens
+    //     console.log(`Game: ${game.length}`);
+    //     console.log(`Clicked: ${clickedArr.length}`);
+    //     console.log(`Bombs: ${bombMap.length}`);
+    //     if(game.length - clickedArr.length == bombMap.length){
+    //         console.log('winner');
+    //         setGameOver(true);
+    //     }
+    // }, [counter]);
     
     return (
         <div>

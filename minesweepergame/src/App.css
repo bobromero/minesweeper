@@ -3,27 +3,64 @@
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  background-color: #212121;
+  color: white;
 }
 .button{
   height: 20px;
   width: 20px;
+  background-color: rgb(216, 216, 216);
+  border-top-color: rgb(243, 243, 243);
+  border-left-color: rgb(243, 243, 243);
+  border-bottom-color: rgb(195, 195, 195);
+  border-right-color: rgb(195, 195, 195);
+}
+.button:hover, .button:focus, .button:active, .button:visited{
+  border-top-color: rgb(243, 243, 243);
+  border-left-color: rgb(243, 243, 243);
+  border-bottom-color: rgb(195, 195, 195);
+  border-right-color: rgb(195, 195, 195);
+  outline: none;
+}
+.bomb{
+  background-color: red !important;
+}
+.clicked{
+  background-color: rgb(167, 167, 167);
+  border: solid .5px black;
+}
+.clicked:hover{
+  border: solid .5px black;
+  outline: none;
+}
+.clicked:focus{
+  border: solid .5px black;
+  outline: none;
+}
+.clicked:active{
+  border: solid .5px black;
+  outline: none;
+}
+.clicked:visited{
+  border: solid .5px black;
+  outline: none;
 }
 .minContent{
   height: 20px;
   width: min-content;
 }
-.done:hover{
+/* .done:hover{
   background-color: white;
-}
+} */
 .Grid{
   justify-content: center;
 }
 p{
   position: relative;
   bottom: 2px;
-  right: 8px;
+  right: 6px;
   height: 10px;
-  width: 20px;
+  width: 19px;
   margin: 0;
-
+  border: none;
 }

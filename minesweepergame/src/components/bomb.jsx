@@ -5,7 +5,7 @@ class Bomb extends Box{
     }
     render(){
         return(
-            <Box isBomb={true} gameOver={this.props.gameOver} bombClick={this.props.bombClick} wasClicked={this.props.wasClicked}/>
+            <Box x={this.props.x} y={this.props.y} isBomb={true} clickedArr={this.props.clickedArr} gameOver={this.props.gameOver} endGame={this.props.endGame} wasClicked={this.props.wasClicked}/>
             
         )
     }
