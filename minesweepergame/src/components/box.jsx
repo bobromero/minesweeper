@@ -12,9 +12,9 @@ class Box extends Component{
     getNeighborsBombs(foundBombs = 0){
         //x = j
         //y = i
-        let Y = this.props.y
-        let X = this.props.x
-        let gameMap = this.props.mapP
+        let Y = this.props.y;
+        let X = this.props.x;
+        let gameMap = this.props.mapP;
         //*terinary used to decide if it should look spaces above or below, used to get around error out of bounds
         for (let i = Y > 0 ? -1 : 0; i <= (Y === gameMap.length - 1 ? 0 : 1); i++) {
             for (let j = -1; j <= 1; j++) {

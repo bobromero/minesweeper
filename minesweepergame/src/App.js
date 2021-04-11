@@ -5,11 +5,15 @@ function App() {
   return (
     <div className="App">
       <Grid 
+        // width = {5}
+        // height = {5}
+        // numBombs = {5}
+      />
+      {/* <GridRedo
         width = {5}
         height = {5}
-        numBombs = {1}
-      />
-      <GridRedo/>
+        numBombs = {10}
+      /> */}
     </div>
   );
 }

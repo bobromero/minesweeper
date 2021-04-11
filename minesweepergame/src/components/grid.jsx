@@ -2,8 +2,9 @@ import React from 'react';
 import Box from './box';
 import Bomb from './bomb';
 function Grid({height = 8, width = 10, numBombs = 10}) {
-    let game = [];
-    let map = [];
+    const [game] = React.useState([]);
+    const [map] = React.useState([]);
+    const [counter, setCounter] = React.useState(0);
     let bombMap = [];
     let played = [];
     let currentNumBombs = 0;
@@ -18,37 +19,25 @@ function Grid({height = 8, width = 10, numBombs = 10}) {
         return true;
     }
     function decideBomb(numOfBombs, i, j) {
-        // console.log(map)
-        // console.log(i)
-        // console.log(j)
-        // console.log("")
         if (map[i][j] == true) {
             currentNumBombs=0;
-            return <Bomb/>
-            // return canPlaceBomb(currentNumBombs, numOfBombs)?<Bomb/>:<Box x={j} y={i} mapP={map}/>;
+            return <Bomb/>;
+            return canPlaceBomb(currentNumBombs, numOfBombs)?<Bomb/>:<Box x={j} y={i} mapP={map}/>;
         }
         return <Box x={j} y={i} mapP={map}/>;
     }
     //!figure this out
-    for (let i = 0; i < height; i++) {
-        let arr = []
-        for (let j = 0; j < width; j++) {
-            arr.push(false);
-        }
-        played.push(arr);
-        map.push(arr);
-    }
+    
     function checkAvailable(rh,rw){
         //!get this working
         //*checks every spot on the bomb map to see if it is a duplicate
-        
-        for (let i = 0; i < bombMap.length; i++) {
-            //*if it is found, return new spot
+        //*if it is found, return new spot
+        for(let i = 0; i < bombMap.length; i++){
             if(bombMap[i][0] === rh && bombMap[i][1] === rw){
-                let rh1 = Math.floor(Math.random() * height);
-                let rw1 = Math.floor(Math.random() * width);
-                checkAvailable(rh1,rw1);
-                return [rh1,rw1];
+                console.log(bombMap[i][0])
+                let rh1 = Math.floor(Math.random()* height);
+                let rw1 = Math.floor(Math.random()* width);
+                return checkAvailable(rh1,rw1);
             }
         }
         //*if not found, return original number
@@ -63,20 +52,32 @@ function Grid({height = 8, width = 10, numBombs = 10}) {
             map[arr[0]][arr[1]] = true;
         }
     }
-    setBombs();
-    for (let i = 0; i < height; i++) {
-        let arr = []
-        for (let j = 0; j < width; j++) {
-            // console.log(map[i][j])
-            arr.push(decideBomb(numBombs, i, j));
+    // console.log(game)
+    React.useEffect(() =>{
+        for (let i = 0; i < height; i++) {
+            let arr = []
+            for (let j = 0; j < width; j++) {
+                arr.push(false);
+            }
+            played.push(arr);
+            map.push(arr);
         }
-        game.push(arr);
-    }
+        setBombs();
+        for (let i = 0; i < height; i++) {
+            let arr = []
+            for (let j = 0; j < width; j++) {
+                arr.push(decideBomb(numBombs, i, j));
+            }
+            game.push(arr);
+        }
+        setCounter(counter + 1)
+    }, [])
+    
     return (
         <div>
             <h1>Minesweeper</h1>
             <div style={style} className="Grid">{game}</div>
-            <button onClick={()=>{console.log(game)}}>clgrid</button>
+            <button onClick={()=>{console.log(map)}}>clgrid</button>
         </div>
     );
 }
