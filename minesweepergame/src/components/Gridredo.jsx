@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Box from './box';
 import Bomb from './bomb';
-function Grid({height = 8, width = 10, numBombs = 10}) {
+function GridRedo({height = 8, width = 10, numBombs = 10}) {
     let game = [];
     let map = [];
     let currentNumBombs = 0;
@@ -53,4 +53,4 @@ function Grid({height = 8, width = 10, numBombs = 10}) {
     );
 }
 
-export default Grid;
+export default GridRedo;
