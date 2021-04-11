@@ -12,6 +12,9 @@
   height: 20px;
   width: min-content;
 }
+.done:hover{
+  background-color: white;
+}
 .Grid{
   justify-content: center;
 }
