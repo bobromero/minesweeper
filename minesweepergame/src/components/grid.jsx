@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Box from './box';
 import Bomb from './bomb';
 function Grid({height = 8, width = 10, numBombs = 10}) {
     let game = [];
     let map = [];
+    let bombMap = [];
+    let played = [];
     let currentNumBombs = 0;
     const style = {
         display: 'grid',
@@ -16,34 +18,60 @@ function Grid({height = 8, width = 10, numBombs = 10}) {
         return true;
     }
     function decideBomb(numOfBombs, i, j) {
+        // console.log(map)
+        // console.log(i)
+        // console.log(j)
+        // console.log("")
         if (map[i][j] == true) {
             currentNumBombs=0;
-            return canPlaceBomb(currentNumBombs, numOfBombs)?<Bomb/>:<Box x={j} y={i} mapP={map}/>;
+            return <Bomb/>
+            // return canPlaceBomb(currentNumBombs, numOfBombs)?<Bomb/>:<Box x={j} y={i} mapP={map}/>;
         }
         return <Box x={j} y={i} mapP={map}/>;
     }
-    function decideBomb1(numOfBombs, i, j) {
-        if (Math.floor(Math.random()* 10) == 4) {
-            currentNumBombs++;
-            return canPlaceBomb(currentNumBombs, numOfBombs);
-        }
-        return false;
-    }
-    for (let i = 0; i < height; i++) {
-        let arrr = []
-        for (let j = 0; j < width; j++) {
-            arrr.push(decideBomb1(numBombs, i, j,));
-        }
-        map.push(arrr);
-    }
+    //!figure this out
     for (let i = 0; i < height; i++) {
         let arr = []
         for (let j = 0; j < width; j++) {
-            arr.push(decideBomb(numBombs, i, j,));
+            arr.push(false);
+        }
+        played.push(arr);
+        map.push(arr);
+    }
+    function checkAvailable(rh,rw){
+        //!get this working
+        //*checks every spot on the bomb map to see if it is a duplicate
+        
+        for (let i = 0; i < bombMap.length; i++) {
+            //*if it is found, return new spot
+            if(bombMap[i][0] === rh && bombMap[i][1] === rw){
+                let rh1 = Math.floor(Math.random() * height);
+                let rw1 = Math.floor(Math.random() * width);
+                checkAvailable(rh1,rw1);
+                return [rh1,rw1];
+            }
+        }
+        //*if not found, return original number
+        return [rh,rw];
+    }
+    function setBombs() {
+        for (let x = 0; x < numBombs; x++) {
+            let randHeight = Math.floor(Math.random()* height);
+            let randWidth = Math.floor(Math.random()* width);
+            let arr = checkAvailable(randHeight, randWidth);
+            bombMap.push(arr);
+            map[arr[0]][arr[1]] = true;
+        }
+    }
+    setBombs();
+    for (let i = 0; i < height; i++) {
+        let arr = []
+        for (let j = 0; j < width; j++) {
+            // console.log(map[i][j])
+            arr.push(decideBomb(numBombs, i, j));
         }
         game.push(arr);
     }
-    
     return (
         <div>
             <h1>Minesweeper</h1>

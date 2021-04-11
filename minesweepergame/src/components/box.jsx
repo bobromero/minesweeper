@@ -16,9 +16,9 @@ class Box extends Component{
         let X = this.props.x
         let gameMap = this.props.mapP
         //*terinary used to decide if it should look spaces above or below, used to get around error out of bounds
-        for (let i = Y > 0 ? -1 : 0; i <= (Y == gameMap.length - 1 ? 0 : 1); i++) {
+        for (let i = Y > 0 ? -1 : 0; i <= (Y === gameMap.length - 1 ? 0 : 1); i++) {
             for (let j = -1; j <= 1; j++) {
-                if(gameMap[Y + i][X + j] == true){
+                if(gameMap[Y + i][X + j] === true){
                     foundBombs++;
                 }
             }
@@ -27,6 +27,7 @@ class Box extends Component{
     }
     getBombs(){
         ////generate map first, then set bombs based on the map, not vice versa
+        //TODO switch neighboring 0's to click as well
         return this.getNeighborsBombs();
     }
     setClicked = () => {

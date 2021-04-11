@@ -1,15 +1,13 @@
 import './App.css';
-import Box from './components/box';
-import Bomb from './components/bomb';
 import Grid from "./components/grid";
 import GridRedo from './components/Gridredo';
 function App() {
   return (
     <div className="App">
       <Grid 
-        // width = {10}
-        // height = {10}
-        // numBombs = {10}
+        width = {5}
+        height = {5}
+        numBombs = {1}
       />
       <GridRedo/>
     </div>

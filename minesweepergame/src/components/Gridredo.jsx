@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Box from './box';
 import Bomb from './bomb';
 function GridRedo({height = 8, width = 10, numBombs = 10}) {
@@ -16,14 +16,15 @@ function GridRedo({height = 8, width = 10, numBombs = 10}) {
         return true;
     }
     function decideBomb(numOfBombs, i, j) {
-        if (map[i][j] == true) {
+        if (map[i][j] === true) {
             currentNumBombs=0;
             return canPlaceBomb(currentNumBombs, numOfBombs)?<Bomb/>:<Box x={j} y={i} mapP={map}/>;
         }
         return <Box x={j} y={i} mapP={map}/>;
     }
-    function decideBomb1(numOfBombs, i, j) {
-        if (Math.floor(Math.random()* 10) == 4) {
+    function decideBomb1(numOfBombs) {
+        //!if you don't figure something just 
+        if (Math.floor(Math.random()* 10) === 1) {
             currentNumBombs++;
             return canPlaceBomb(currentNumBombs, numOfBombs);
         }
@@ -32,7 +33,7 @@ function GridRedo({height = 8, width = 10, numBombs = 10}) {
     for (let i = 0; i < height; i++) {
         let arrr = []
         for (let j = 0; j < width; j++) {
-            arrr.push(decideBomb1(numBombs, i, j,));
+            arrr.push(decideBomb1(numBombs));
         }
         map.push(arrr);
     }
